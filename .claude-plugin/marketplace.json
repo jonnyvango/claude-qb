@@ -1,0 +1,5 @@
+{
+  "name": "claude-qb",
+  "owner": { "name": "Jonny Vango" },
+  "plugins": [{ "name": "quarterback", "source": "./" }]
+}
