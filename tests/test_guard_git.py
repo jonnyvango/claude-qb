@@ -75,6 +75,8 @@ class OnFeatureBranch(unittest.TestCase):
         for command in [
             "gh pr merge 12 --squash",
             "gh api -X PUT repos/o/r/pulls/3/merge",
+            "gh api -X PUT repos/o/r/pulls/$PR/merge",
+            'gh api -X PUT "repos/o/r/pulls/${PR}/merge"',
             "gh api repos/o/r/merges -f base=master -f head=spec/x",
         ]:
             self.assertDenied(command)
@@ -90,6 +92,8 @@ class OnFeatureBranch(unittest.TestCase):
             "echo git push origin master",
             "git log master",
             "gh pr create --base master --title t --body b",
+            "gh api -X POST repos/o/r/pulls -f title=t -f head=spec/x -f base=master -f body=b",
+            "gh api repos/o/r/pulls/3/files",
             "gh pr view 3",
             "ls -la",
         ]:

@@ -12,7 +12,7 @@ You're part of Quarterback, a workflow where Claude does the work and the user m
 
 The milestones are listed in `ROADMAP.md`, and the current one is the first unticked one. Each milestone has:
 
-- a branch, `spec/<n>-<slug>`, cut from the default branch, where `<n>` is its number in the roadmap and `<slug>` is its name in kebab case
+- a branch, `spec/<n>-<slug>`, cut from the default branch, where `<n>` is its number in the roadmap and `<slug>` is its name in kebab case. If your session may push only to a branch it was given, as a cloud session's can, the milestone uses that branch instead
 - a file, `docs/milestones/<n>-<slug>.md`, committed on that branch, with three sections: `## Notes` (what the user settled), `## Spec` and `## Decisions` (the decision log)
 
 ## Decide or ask
@@ -61,7 +61,7 @@ If the same check still fails after two genuinely different fixes, stop and esca
 
 ## Git
 
-Work on `ticket/*` or `spec/*` branches, in small atomic commits. Never merge, never push to the default branch, and never force-push.
+Work on `ticket/*` or `spec/*` branches, or the branch your session was given, in small atomic commits. Never merge, never push to the default branch, and never force-push.
 
 ## Pull requests
 
