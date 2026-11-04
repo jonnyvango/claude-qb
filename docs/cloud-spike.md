@@ -9,7 +9,8 @@ Notes from running `/quarterback:drive` on [qb-toy](https://github.com/jonnyvang
 | Does the git hook block a push to master? | Yes. It denied `git push origin master` before the command ran (run 3) |
 | Is python3 there for the hook? | Yes: 3.13 at `/usr/local/bin/python3` |
 | How does grill ask its questions? | It asked one batch of three multiple-choice questions through `AskUserQuestion`, each with its recommended answer first, and waited for answers in the web UI |
-| Can it push and open a PR? | Push: yes, but only to the session's own `claude/<name>` branch, not `spec/<n>-<slug>`. PR: `gh pr create` gets a 403 because GraphQL is blocked, but `gh api -X POST repos/<owner>/<repo>/pulls` (REST) opened it |
+| Can it push and open a PR? | Push: yes, but only to the session's own `claude/<name>` branch, not `spec/<n>-<slug>`. PR: `gh pr create` gets a 403 because GraphQL is blocked, but `gh api -X POST repos/<owner>/<repo>/pulls` (REST) opened it. The session's GitHub connector (`create_pull_request`) works too (run 4) |
+| Does a cloud environment pick up plugin updates? | No. Run 4 still had 0.7.0 (`511062b`, the run 3 install) after master moved to 0.8.0, because the environment's cached setup was reused. Not yet tested: whether update commands in the setup script fix it |
 | Does anyone need to fix `GH_TOKEN`? | No. It reads as the placeholder `proxy-injected`, and the proxy swaps in real credentials |
 | What do commits look like without the personal atomic-commits skill? | Small and focused: 7 commits, each one step (notes, spec, tests, feature, README, decision log, a fix-up) |
 
@@ -64,3 +65,11 @@ The cloud environment's setup script ran `claude plugin marketplace add jonnyvan
 1. **Install docs:** each user adds the two install commands to their cloud environment's setup script.
 2. **Opening a PR:** drive should fall back to the REST API when `gh pr create` fails, without being told to.
 3. **Branch names:** in a cloud session, use the branch the session was given rather than `spec/<n>-<slug>`.
+
+## Run 4: 2026-11-04
+
+This run was meant to test roadmap item 2b (0.8.0) with a plain prompt. Result: [qb-toy #6](https://github.com/jonnyvango/qb-toy/pull/6), milestone 3 (Help), opened, but on the old plugin. So it doesn't count as 2b's check.
+
+- **The plugin was stale.** The session had 0.7.0 at `511062b`, the same install as run 3, so the environment's cached setup was reused, and that cache doesn't pick up plugin updates. The prompt said to stop unless the version was 0.8.0, but the session ran drive anyway.
+- **The PR was opened through the GitHub connector.** Without being told how, the old drive pushed and then called the connector's `create_pull_request` tool, not `gh`. The guard's matcher covers `mcp__<any server>__merge_pull_request`, so the connector can't merge.
+- **The branch** was the session's own `claude/<name>`, recorded as a decision, as the old rules required.
