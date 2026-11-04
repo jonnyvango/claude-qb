@@ -1,5 +1,6 @@
 {
   "name": "claude-qb",
+  "description": "Quarterback: Claude drives your roadmap to merged pull requests, and you make only the calls that need you",
   "owner": { "name": "Jonny Vango" },
   "plugins": [{ "name": "quarterback", "source": "./" }]
 }
