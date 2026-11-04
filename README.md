@@ -17,7 +17,7 @@ You quarterback, Claude plays. Quarterback is a Claude Code plugin that takes a 
    Each milestone gets a branch, `spec/<n>-<slug>`, and a file, `docs/milestones/<n>-<slug>.md`, which holds your answers, the spec and the decision log. After you answer a question or merge a pull request, run `/quarterback:drive` again and it picks up where it stopped.
 3. When it needs you, it stops and asks in the session. *(Planned: notifications on your computer or phone.)*
 
-It is designed to run in the cloud, so your machine doesn't need to stay on, or locally. So far it has only been tested locally.
+Cloud is the default, so your machine doesn't need to stay on, but it runs locally too. It has taken a milestone to an open pull request both locally and in a cloud session. [`docs/cloud-spike.md`](docs/cloud-spike.md) records what works in the cloud, and what still needs fixing.
 
 ## What needs you
 
@@ -44,6 +44,8 @@ Quarterback never merges, never pushes to your default branch, and never force-p
 claude plugin marketplace add jonnyvango/claude-qb
 claude plugin install quarterback@claude-qb
 ```
+
+In a cloud session (claude.ai/code), put those two commands in your cloud environment's setup script. A cloud session doesn't install plugins listed in a repo's `.claude/settings.json`. Two known gaps there: `gh pr create` is blocked, so the pull request has to be opened through the REST API (`gh api`), and a session can push only to the branch it was given, not to `spec/<n>-<slug>`.
 
 ## Development
 
