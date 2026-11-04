@@ -74,6 +74,10 @@ class OnFeatureBranch(unittest.TestCase):
     def test_merging_pull_requests_is_denied(self):
         for command in [
             "gh pr merge 12 --squash",
+            "gh pr merge 3 -R o/r",
+            "gh pr -R o/r merge 3",
+            "gh pr --repo o/r merge 3",
+            "gh pr --repo=o/r merge 3",
             "gh api -X PUT repos/o/r/pulls/3/merge",
             "gh api -X PUT repos/o/r/pulls/$PR/merge",
             'gh api -X PUT "repos/o/r/pulls/${PR}/merge"',
@@ -95,6 +99,8 @@ class OnFeatureBranch(unittest.TestCase):
             "gh api -X POST repos/o/r/pulls -f title=t -f head=spec/x -f base=master -f body=b",
             "gh api repos/o/r/pulls/3/files",
             "gh pr view 3",
+            "gh pr -R o/r view 3",
+            "gh pr -R merge view 3",
             "ls -la",
         ]:
             self.assertAllowed(command)
