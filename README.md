@@ -43,6 +43,8 @@ claude plugin install quarterback@claude-qb
 
 ## Development
 
+How to write skills and agents for this plugin is in [`CLAUDE.md`](CLAUDE.md).
+
 ```sh
 claude --plugin-dir .          # run a session with your working copy
 claude plugin validate .       # check the plugin
