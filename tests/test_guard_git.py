@@ -14,12 +14,12 @@ def sh(cwd, *args):
 
 def make_repo(branch="spec/x", origin_head=True):
     repo = tempfile.mkdtemp()
-    sh(repo, "git", "init", "-q", "-b", "main")
+    sh(repo, "git", "init", "-q", "-b", "master")
     sh(repo, "git", "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "--allow-empty", "-m", "init")
     if origin_head:
-        sh(repo, "git", "update-ref", "refs/remotes/origin/main", "HEAD")
-        sh(repo, "git", "symbolic-ref", "refs/remotes/origin/HEAD", "refs/remotes/origin/main")
-    if branch != "main":
+        sh(repo, "git", "update-ref", "refs/remotes/origin/master", "HEAD")
+        sh(repo, "git", "symbolic-ref", "refs/remotes/origin/HEAD", "refs/remotes/origin/master")
+    if branch != "master":
         sh(repo, "git", "switch", "-q", "-c", branch)
     os.makedirs(os.path.join(repo, "sub"))
     return repo
@@ -45,18 +45,18 @@ class OnFeatureBranch(unittest.TestCase):
 
     def test_push_to_default_is_denied(self):
         for command in [
-            "git push origin main",
-            "git push origin HEAD:main",
-            "git push origin spec/x:refs/heads/main",
-            "git push origin --delete main",
-            "git push origin :main",
+            "git push origin master",
+            "git push origin HEAD:master",
+            "git push origin spec/x:refs/heads/master",
+            "git push origin --delete master",
+            "git push origin :master",
             "git push --all origin",
             "git push --mirror origin",
-            "cd sub && git push origin main",
-            "git -C sub push origin main",
-            "git status; git push origin main",
-            "GIT_TRACE=1 git push origin main",
-            "bash -c 'git push origin main'",
+            "cd sub && git push origin master",
+            "git -C sub push origin master",
+            "git status; git push origin master",
+            "GIT_TRACE=1 git push origin master",
+            "bash -c 'git push origin master'",
         ]:
             self.assertDenied(command)
 
@@ -75,7 +75,7 @@ class OnFeatureBranch(unittest.TestCase):
         for command in [
             "gh pr merge 12 --squash",
             "gh api -X PUT repos/o/r/pulls/3/merge",
-            "gh api repos/o/r/merges -f base=main -f head=spec/x",
+            "gh api repos/o/r/merges -f base=master -f head=spec/x",
         ]:
             self.assertDenied(command)
 
@@ -85,11 +85,11 @@ class OnFeatureBranch(unittest.TestCase):
             "git push",
             "git push origin HEAD",
             "git push origin --tags",
-            "git merge main",
-            "git commit -m 'never git push origin main'",
-            "echo git push origin main",
-            "git log main",
-            "gh pr create --base main --title t --body b",
+            "git merge master",
+            "git commit -m 'never git push origin master'",
+            "echo git push origin master",
+            "git log master",
+            "gh pr create --base master --title t --body b",
             "gh pr view 3",
             "ls -la",
         ]:
@@ -97,7 +97,7 @@ class OnFeatureBranch(unittest.TestCase):
 
 
 class OnDefaultBranch(unittest.TestCase):
-    repo = make_repo(branch="main")
+    repo = make_repo(branch="master")
 
     def test_bare_push_is_denied(self):
         for command in ["git push", "git push -u origin HEAD", "git push origin"]:
@@ -130,7 +130,7 @@ class GitHubTools(unittest.TestCase):
         self.assertEqual(self.mcp("merge_pull_request", owner="o", repo="r", pullNumber=1), "deny")
 
     def test_writes_to_default_are_denied(self):
-        self.assertEqual(self.mcp("push_files", branch="main", files=[]), "deny")
+        self.assertEqual(self.mcp("push_files", branch="master", files=[]), "deny")
         self.assertEqual(self.mcp("create_or_update_file", path="a", content="b"), "deny")
 
     def test_writes_to_branches_are_allowed(self):

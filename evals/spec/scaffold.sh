@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # A toy repo partway through a milestone: the notes are in, the spec isn't.
 set -euo pipefail
-git init -q -b main
+git init -q -b master
 git config user.name "Eval"
 git config user.email "eval@example.com"
 cat > greet <<'SH'
