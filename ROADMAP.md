@@ -6,7 +6,7 @@ The order is deliberate. A rough version of the whole loop comes first, and then
 
 - [x] **0. Scaffold:** retire the hub, set up the plugin and write the shared rules.
 - [x] **1. Crude end to end:** minimal `grill`, `spec` and `drive` skills; `spec-writer`, `implementer` and `reviewer` agents; a hook that blocks merges and pushes to the default branch; one eval per skill. Done when `/drive` takes a toy milestone to an open pull request.
-- [ ] **2. Cloud spike:** run the rough loop in a cloud session and record what works there, which decides whether cloud or local is the default.
+- [ ] **2. Cloud spike:** run the rough loop in a cloud session and record what works there, which decides whether cloud or local is the default. Include a check that a push to the default branch really gets blocked there. If Python is missing or the hook crashes, Claude Code lets the command through.
 - [ ] **3. Verification:** acceptance checks in every spec, tests written first, a hook that stops an implementer while its check fails, and reviews that run the app.
 - [ ] **4. Your attention:** a grill with a scope fence, a decision log, escalation, notifications and attempt budgets.
 - [ ] **5. Roadmap:** the `roadmap` skill, tested by rewriting this file.

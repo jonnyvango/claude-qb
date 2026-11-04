@@ -36,7 +36,7 @@ Quarterback never merges, never pushes to your default branch, and never force-p
 
 - Claude Code
 - git, and the GitHub CLI (`gh`) signed in, to open pull requests
-- Python 3, for the git hook
+- Python 3, for the git hook. Without it, or if the hook crashes, the hook can't block anything and Claude Code lets the command through.
 
 ## Install
 
