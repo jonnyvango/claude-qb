@@ -56,7 +56,7 @@ python3 -m unittest discover tests   # test the git hook
 claude plugin eval . --scaffold --allow-tools Bash Write Edit   # run the skills' evals
 ```
 
-Each skill has eval cases in [`evals/`](evals). Every eval run is a real Claude session on your account, so add `--case <name> --runs 1` while iterating.
+Each skill has eval cases in [`evals/`](evals). Every eval run is a real Claude session on your account, so add `--case <name> --runs 1` while iterating. On a Claude plan, runs count against your usage limits. The dollar cost the eval reports is an estimate at API list price, not a charge.
 
 Issues are tracked in [GitHub Issues](https://github.com/jonnyvango/claude-qb/issues).
 
