@@ -1,6 +1,7 @@
 """Tests for hooks/guard_git.py. Run with: python3 -m unittest discover tests"""
 import json
 import os
+import shutil
 import subprocess
 import tempfile
 import unittest
@@ -34,8 +35,16 @@ def bash(command, cwd):
     return decide({"tool_name": "Bash", "tool_input": {"command": command}, "cwd": cwd})
 
 
-class OnFeatureBranch(unittest.TestCase):
-    repo = make_repo()
+class RepoTest(unittest.TestCase):
+    repo_args = {}
+
+    @classmethod
+    def setUpClass(cls):
+        cls.repo = make_repo(**cls.repo_args)
+        cls.addClassCleanup(shutil.rmtree, cls.repo)
+
+
+class OnFeatureBranch(RepoTest):
 
     def assertDenied(self, command):
         self.assertEqual(bash(command, self.repo), "deny", command)
@@ -106,8 +115,8 @@ class OnFeatureBranch(unittest.TestCase):
             self.assertAllowed(command)
 
 
-class OnDefaultBranch(unittest.TestCase):
-    repo = make_repo(branch="master")
+class OnDefaultBranch(RepoTest):
+    repo_args = {"branch": "master"}
 
     def test_bare_push_is_denied(self):
         for command in ["git push", "git push -u origin HEAD", "git push origin"]:
@@ -121,8 +130,8 @@ class OnDefaultBranch(unittest.TestCase):
         self.assertEqual(bash("git pull", self.repo), "allow")
 
 
-class WithoutOriginHead(unittest.TestCase):
-    repo = make_repo(origin_head=False)
+class WithoutOriginHead(RepoTest):
+    repo_args = {"origin_head": False}
 
     def test_main_and_master_are_both_protected(self):
         self.assertEqual(bash("git push origin main", self.repo), "deny")
@@ -130,8 +139,7 @@ class WithoutOriginHead(unittest.TestCase):
         self.assertEqual(bash("git push origin spec/x", self.repo), "allow")
 
 
-class GitHubTools(unittest.TestCase):
-    repo = make_repo()
+class GitHubTools(RepoTest):
 
     def mcp(self, name, **tool_input):
         return decide({"tool_name": f"mcp__plugin_github_github__{name}", "tool_input": tool_input, "cwd": self.repo})
