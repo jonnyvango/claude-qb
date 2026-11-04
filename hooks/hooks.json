@@ -1,0 +1,17 @@
+{
+  "description": "Quarterback's hard git rules: never merge, never push to the default branch, never force-push.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|mcp__.*__(merge_pull_request|push_files|create_or_update_file|delete_file)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/guard_git.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
