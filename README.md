@@ -2,20 +2,22 @@
 
 You quarterback, Claude plays. Quarterback is a Claude Code plugin that takes a project from an idea to merged pull requests. It stops only for the calls that need you: product decisions, decisions that can't be undone, and merges.
 
-**Status: early development.** Nothing is usable yet. The commands below are planned and arrive milestone by milestone. See the [roadmap](ROADMAP.md) for where it's up to.
+**Status: early development.** A rough first version of `/quarterback:drive` works, given a `ROADMAP.md` you write yourself. Everything marked planned arrives milestone by milestone. See the [roadmap](ROADMAP.md) for where it's up to.
 
-## How it will work
+## How it works
 
-1. **`/quarterback:roadmap`** asks you about your idea and writes `ROADMAP.md`: the vision, then milestones, each with a definition of done. Only the next one or two milestones are written in detail. Each later one is detailed when it comes up, using what the earlier ones taught.
-2. **`/quarterback:drive`** moves the current milestone forward one step each time it runs. The steps are:
-   1. ask you about the milestone, if it needs your input
-   2. write the spec
-   3. build it
-   4. check it
-   5. open a pull request
-3. When it needs you, for a question or a pull request to merge, it notifies you on your computer or phone and stops. You answer, and it carries on.
+1. **`/quarterback:roadmap`** *(planned)* asks you about your idea and writes `ROADMAP.md`: the vision, then milestones, each with a definition of done. Only the next one or two milestones are written in detail. Each later one is detailed when it comes up, using what the earlier ones taught. Until it arrives, write `ROADMAP.md` yourself as a checklist, one line per milestone: `- [ ] **1. Name:** what it does. Done when ...`
+2. **`/quarterback:drive`** takes the first unticked milestone to an open pull request, and stops only when it needs you. Along the way it:
+   1. asks you about the milestone, if it needs your input (`/quarterback:grill` runs this step on its own)
+   2. writes the spec
+   3. builds it
+   4. checks it
+   5. opens a pull request
 
-It is designed to run in the cloud, so your machine doesn't need to stay on, or locally.
+   Each milestone gets a branch, `spec/<n>-<slug>`, and a file, `docs/milestones/<n>-<slug>.md`, which holds your answers, the spec and the decision log. After you answer a question or merge a pull request, run `/quarterback:drive` again and it picks up where it stopped.
+3. When it needs you, it stops and asks in the session. *(Planned: notifications on your computer or phone.)*
+
+It is designed to run in the cloud, so your machine doesn't need to stay on, or locally. So far it has only been tested locally.
 
 ## What needs you
 
@@ -33,6 +35,7 @@ Quarterback never merges, never pushes to your default branch, and never force-p
 ## Requirements
 
 - Claude Code
+- git, and the GitHub CLI (`gh`) signed in, to open pull requests
 - Python 3, for the git hook
 
 ## Install
