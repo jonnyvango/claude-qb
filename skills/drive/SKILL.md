@@ -7,7 +7,7 @@ description: Take the project's current milestone to an open pull request, stopp
 
 Take the current milestone to an open pull request, stopping only for the calls that need the user. Follow the playbook throughout.
 
-The current milestone is the first unchecked one in `ROADMAP.md`. Work out how far it has got from its branch, its milestone file and any pull request (playbook), then carry on from there through these steps:
+The current milestone is the first unchecked one in `ROADMAP.md`. Work out how far it has got from its branch, its milestone file and any pull request (playbook). If your session was given its own branch, earlier work on the milestone may be on another branch or pull request, so look there before starting over. Then carry on through these steps:
 
 1. **Grill:** if the milestone file has no notes, use the `grill` skill. If it asked anything, stop until the user answers.
 2. **Spec:** if there's no spec, run the `quarterback:spec-writer` agent.
