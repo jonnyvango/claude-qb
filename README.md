@@ -28,11 +28,12 @@ Every pull request is built to be reviewed in minutes. It contains:
 - evidence that it works, such as check output and screenshots
 - anything left over
 
-Quarterback never merges, never pushes to your default branch, and never force-pushes.
+Quarterback never merges, never pushes to your default branch, and never force-pushes. A hook enforces this in every Claude Code session where the plugin is enabled, not only during Quarterback's work. While it's on, Claude can't merge a pull request, merge into the default branch, push to it or force-push, in any repository. Do those yourself, or disable the plugin.
 
 ## Requirements
 
 - Claude Code
+- Python 3, for the git hook
 
 ## Install
 
@@ -48,6 +49,7 @@ The shared rules every step follows are in [`skills/playbook/SKILL.md`](skills/p
 ```sh
 claude --plugin-dir .          # run a session with your working copy
 claude plugin validate .       # check the plugin
+python3 -m unittest discover tests   # test the git hook
 ```
 
 Issues are tracked in [GitHub Issues](https://github.com/jonnyvango/claude-qb/issues).

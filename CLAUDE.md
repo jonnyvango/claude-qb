@@ -15,4 +15,4 @@ The workflow is made of skills (`skills/<name>/SKILL.md`) and agents (`agents/<n
 
 ## Checks
 
-Run `claude plugin validate .` before committing. From phase 1, each skill has eval cases in `evals/`, run with `claude plugin eval .`.
+Run `claude plugin validate .` before committing, and `python3 -m unittest discover tests` when you change a hook. From phase 1, each skill has eval cases in `evals/`, run with `claude plugin eval .`.
