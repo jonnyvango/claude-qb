@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # A toy repo whose next milestone is too vague to spec without the user.
 set -euo pipefail
-git init -q -b main
+git init -q -b master
 git config user.name "Eval"
 git config user.email "eval@example.com"
 cat > greet <<'SH'
