@@ -45,7 +45,7 @@ claude plugin marketplace add jonnyvango/claude-qb
 claude plugin install quarterback@claude-qb
 ```
 
-In a cloud session (claude.ai/code), put those two commands in your cloud environment's setup script. A cloud session doesn't install plugins listed in a repo's `.claude/settings.json`. There, `gh pr create` is blocked, and pull requests have to be opened through GitHub's REST API (`gh api`).
+In a cloud session (claude.ai/code), put those two commands in your cloud environment's setup script. A cloud session doesn't install plugins listed in a repo's `.claude/settings.json`. There, `gh pr create` is blocked, so Quarterback opens the pull request through GitHub's REST API (`gh api`).
 
 ## Development
 

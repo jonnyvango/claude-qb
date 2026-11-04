@@ -17,7 +17,7 @@ The order is deliberate. A rough version of the whole loop comes first, and then
 ## Later
 
 - Working ahead on stacked branches while a pull request waits for you
-- Closing the git hook's gaps: commands run from scripts an agent writes, remotes other than `origin`, and `gh repo sync`
+- Closing the git hook's gaps: commands run from scripts an agent writes, remotes other than `origin`, `gh repo sync`, and merges through `gh api graphql`
 - Evals that can check commits, since git can't run inside the eval sandbox on macOS
 - Resuming a milestone in a new cloud session, which gets a different branch from the one the earlier work is on
 - A full eval baseline: so far each case has run once, without the no-plugin arm

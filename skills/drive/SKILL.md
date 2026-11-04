@@ -13,7 +13,7 @@ The current milestone is the first unchecked one in `ROADMAP.md`. Work out how f
 2. **Spec:** if there's no spec, run the `quarterback:spec-writer` agent.
 3. **Build:** run the `quarterback:implementer` agent.
 4. **Check:** run the `quarterback:reviewer` agent. If it fails, pass its findings to the implementer and check again. If it fails a second time, escalate.
-5. **Pull request:** tick the milestone in `ROADMAP.md`, commit, push the branch and open a pull request against the default branch. Its body follows the playbook, using the decisions from the milestone file and the evidence from the reviewer's report.
+5. **Pull request:** tick the milestone in `ROADMAP.md`, commit, push the branch and open a pull request against the default branch. If `gh pr create` is blocked, as it is in cloud sessions, open it through the REST API with `gh api`. Its body follows the playbook, using the decisions from the milestone file and the evidence from the reviewer's report.
 
 Run the agents one at a time, on the milestone's branch. Give each one what it needs, such as the milestone, the file path and any findings, rather than the whole history.
 
