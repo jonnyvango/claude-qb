@@ -15,4 +15,4 @@ The workflow is made of skills (`skills/<name>/SKILL.md`) and agents (`agents/<n
 
 ## Checks
 
-Run `claude plugin validate .` before committing. From phase 1, each skill has eval cases in `evals/`, run with `claude plugin eval .`.
+Run `claude plugin validate .` before committing, and `python3 -m unittest discover tests` when you change a hook. Each skill has eval cases in `evals/`. Run them with `claude plugin eval . --scaffold --allow-tools Bash Write Edit`, adding `--case <name> --runs 1` while iterating, because every run costs money. `--case` takes one glob, so a second `--case` replaces the first. On macOS, git can't run inside the eval sandbox, so grade files and messages, not commits.
