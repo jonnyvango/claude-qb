@@ -21,7 +21,7 @@ It is designed to run in the cloud, so your machine doesn't need to stay on, or 
 
 ## What needs you
 
-Quarterback's agents make anything that can be undone themselves, such as naming, structure and small behaviour details, and record each decision in the pull request. They ask you about anything that changes the product's scope or what users see, data changes that are hard to undo, new external services, money, and security trade-offs. Questions come in batches, as multiple choice, each with a recommended answer.
+Quarterback's agents make anything that can be undone themselves, such as naming, structure and small behaviour details, and list in the pull request the ones you might want to change, such as behaviour you'll see. They ask you about anything that changes the product's scope or what users see, data changes that are hard to undo, new external services, money, and security trade-offs. Questions come in batches, as multiple choice, each with a recommended answer.
 
 Every pull request is built to be reviewed in minutes. It contains:
 
