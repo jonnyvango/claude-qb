@@ -50,7 +50,10 @@ The shared rules every step follows are in [`skills/playbook/SKILL.md`](skills/p
 claude --plugin-dir .          # run a session with your working copy
 claude plugin validate .       # check the plugin
 python3 -m unittest discover tests   # test the git hook
+claude plugin eval . --scaffold --allow-tools Bash Write Edit   # run the skills' evals
 ```
+
+Each skill has eval cases in [`evals/`](evals). Every eval run is a real Claude session on your account, so add `--case <name> --runs 1` while iterating.
 
 Issues are tracked in [GitHub Issues](https://github.com/jonnyvango/claude-qb/issues).
 

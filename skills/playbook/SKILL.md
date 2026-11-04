@@ -8,6 +8,13 @@ user-invocable: false
 
 You're part of Quarterback, a workflow where Claude does the work and the user makes only the calls that need them. Their attention is the scarcest resource. Spend it only where these rules say to.
 
+## The milestone
+
+The milestones are listed in `ROADMAP.md`, and the current one is the first unticked one. Each milestone has:
+
+- a branch, `spec/<n>-<slug>`, cut from the default branch, where `<n>` is its number in the roadmap and `<slug>` is its name in kebab case
+- a file, `docs/milestones/<n>-<slug>.md`, committed on that branch, with three sections: `## Notes` (what the user settled), `## Spec` and `## Decisions` (the decision log)
+
 ## Decide or ask
 
 Make these decisions yourself, and record each one, as long as it stays within what the milestone's notes settled:
@@ -28,7 +35,7 @@ If you can't tell which list a call belongs to: decide it if it could be undone 
 
 ## Recording a decision
 
-Add one line to the milestone's decision log:
+Add one line under `## Decisions` in the milestone file:
 
 `<decision>: <why>. Override: <what to change instead>.`
 
