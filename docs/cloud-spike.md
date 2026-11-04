@@ -1,6 +1,6 @@
 # Cloud spike (phase 2)
 
-Notes from running `/quarterback:drive` on [qb-toy](https://github.com/jonnyvango/qb-toy) in a cloud session. Phase 2 is done when the loop has run there and these questions have answers.
+Notes from running `/quarterback:drive` on [qb-toy](https://github.com/jonnyvango/qb-toy) in a cloud session. Phase 2 is done: the loop ran there, and on 2026-11-04 the user chose cloud as the default. The fixes it needs are roadmap item 2b.
 
 | Question | Answer |
 | --- | --- |
