@@ -5,7 +5,7 @@ This is the plan for building Quarterback itself. It's a placeholder: in phase 5
 The order is deliberate. A rough version of the whole loop comes first, and then each part gets improved, starting with whichever part breaks.
 
 - [x] **0. Scaffold:** retire the hub, set up the plugin and write the shared rules.
-- [ ] **1. Crude end to end:** minimal `grill`, `spec` and `drive` skills; `spec-writer`, `implementer` and `reviewer` agents; a hook that blocks merges and pushes to the default branch; one eval per skill. Done when `/drive` takes a toy milestone to an open pull request.
+- [x] **1. Crude end to end:** minimal `grill`, `spec` and `drive` skills; `spec-writer`, `implementer` and `reviewer` agents; a hook that blocks merges and pushes to the default branch; one eval per skill. Done when `/drive` takes a toy milestone to an open pull request.
 - [ ] **2. Cloud spike:** run the rough loop in a cloud session and record what works there, which decides whether cloud or local is the default.
 - [ ] **3. Verification:** acceptance checks in every spec, tests written first, a hook that stops an implementer while its check fails, and reviews that run the app.
 - [ ] **4. Your attention:** a grill with a scope fence, a decision log, escalation, notifications and attempt budgets.
@@ -16,3 +16,6 @@ The order is deliberate. A rough version of the whole loop comes first, and then
 ## Later
 
 - Working ahead on stacked branches while a pull request waits for you
+- Closing the git hook's gaps: commands run from scripts an agent writes, remotes other than `origin`, and `gh repo sync`
+- Evals that can check commits, since git can't run inside the eval sandbox on macOS
+- A full eval baseline: so far each case has run once, without the no-plugin arm
