@@ -17,7 +17,7 @@ The milestones are listed in `ROADMAP.md`, and the current one is the first unti
 
 ## Decide or ask
 
-Make these decisions yourself, and record each one, as long as it stays within what the milestone's notes settled:
+Make these decisions yourself, as long as they stay within what the milestone's notes settled:
 
 - naming, file layout and code structure
 - libraries within the stack the project already uses
@@ -35,7 +35,7 @@ If you can't tell which list a call belongs to: decide it if it could be undone 
 
 ## Recording a decision
 
-Add one line under `## Decisions` in the milestone file:
+Record only what a reviewer would want to check or change: behaviour users can see, changes to tests or checks, and anything that departs from these rules. Leave out naming, layout, code structure and wording, because the diff shows them. Add one line per decision under `## Decisions` in the milestone file:
 
 `<decision>: <why>. Override: <what to change instead>.`
 
