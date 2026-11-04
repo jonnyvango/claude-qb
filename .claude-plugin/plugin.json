@@ -1,7 +1,7 @@
 {
   "name": "quarterback",
-  "version": "0.5.0",
-  "description": "A standalone live hub of every Claude Code session on this machine, grouped by project",
-  "license": "MIT",
-  "types": "./types/index.d.ts"
+  "version": "0.6.0",
+  "description": "Take a project from idea to merged pull requests. Claude does the work, and you make only the calls that need you.",
+  "author": { "name": "Jonny Vango" },
+  "license": "MIT"
 }
