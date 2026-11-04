@@ -2,16 +2,16 @@
 
 Notes from running `/quarterback:drive` on [qb-toy](https://github.com/jonnyvango/qb-toy) in a cloud session. Phase 2 is done when the loop has run there and these questions have answers.
 
-| Question | Answer so far |
+| Question | Answer |
 | --- | --- |
-| Does the plugin load from qb-toy's `.claude/settings.json`? | No, by design. The docs say a cloud session never installs plugins from a repo's settings. A setup script in the cloud environment has to install it |
-| Does a user have to give the session access to claude-qb? | No: run 2 reached it with only qb-toy enabled |
-| Does the git hook block a push to master? | Not tested: the hook never loaded |
+| Does the plugin load? | Yes, once the cloud environment's setup script installs it (run 3). By design, a cloud session never installs plugins from a repo's `.claude/settings.json` |
+| Does a user have to give the session access to claude-qb? | No. Run 2 reached it with only qb-toy enabled |
+| Does the git hook block a push to master? | Yes. It denied `git push origin master` before the command ran (run 3) |
 | Is python3 there for the hook? | Yes: 3.13 at `/usr/local/bin/python3` |
-| How does grill ask its questions? | Not tested. `AskUserQuestion` is available |
-| Can it push and open a PR? | Not tested. The docs say the cloud GitHub proxy blocks GraphQL, so `gh pr create` should fail; REST (`gh api`) and the web UI's Create PR button are the alternatives |
+| How does grill ask its questions? | It asked one batch of three multiple-choice questions through `AskUserQuestion`, each with its recommended answer first, and waited for answers in the web UI |
+| Can it push and open a PR? | Push: yes, but only to the session's own `claude/<name>` branch, not `spec/<n>-<slug>`. PR: `gh pr create` gets a 403 because GraphQL is blocked, but `gh api -X POST repos/<owner>/<repo>/pulls` (REST) opened it |
 | Does anyone need to fix `GH_TOKEN`? | No. It reads as the placeholder `proxy-injected`, and the proxy swaps in real credentials |
-| What do commits look like without the personal atomic-commits skill? | Not tested: that skill isn't there, and no commits were made |
+| What do commits look like without the personal atomic-commits skill? | Small and focused: 7 commits, each one step (notes, spec, tests, feature, README, decision log, a fix-up) |
 
 ## Run 1: 2026-11-04
 
@@ -48,4 +48,19 @@ From [cloud environments](https://code.claude.com/docs/en/cloud-environments.md)
 
 So every cloud user would need a one-time setup script, and drive can't rely on `gh pr create` there.
 
-For run 3: add the setup script to the cloud environment, then check that the plugin loads, the hook blocks a push to master, and drive gets a PR open through REST or the UI.
+## Run 3: 2026-11-04
+
+The cloud environment's setup script ran `claude plugin marketplace add jonnyvango/claude-qb` and `claude plugin install quarterback@claude-qb`, and the session was started on qb-toy from claude.ai/code. Result: [qb-toy #4](https://github.com/jonnyvango/qb-toy/pull/4), milestone 2 (Languages), opened, with nothing merged and nothing pushed to master.
+
+- **The plugin loaded** (v0.7.0), with all its skills and agents.
+- **The hook blocked** `git push origin master`, with Quarterback's deny message.
+- **Grill** asked three questions in one batch, and the run waited until they were answered.
+- **The branch:** the session can only push to the branch it was given (`claude/tender-galileo-dqfcuf`), so drive used that branch instead of `spec/2-languages` and logged the decision in the PR.
+- **The PR:** `gh pr create` failed with "GitHub GraphQL is not available from Claude Code sessions; use the REST API". Opening it through `gh api` worked, but only because the prompt said to try that.
+- **The review** passed on the first pass, with the PR sections the playbook asks for. bash 3.2 couldn't be tested, because the container only has 5.2.
+
+## What cloud needs from Quarterback
+
+1. **Install docs:** each user adds the two install commands to their cloud environment's setup script.
+2. **Opening a PR:** drive should fall back to the REST API when `gh pr create` fails, without being told to.
+3. **Branch names:** in a cloud session, use the branch the session was given rather than `spec/<n>-<slug>`.
