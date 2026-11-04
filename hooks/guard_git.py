@@ -126,7 +126,7 @@ def check_git(args, cwd):
 def check_gh(args):
     if args[:2] == ["pr", "merge"]:
         return NEVER_MERGE
-    if args[:1] == ["api"] and any(re.search(r"/pulls/\d+/merge\b|/merges\b", a) for a in args):
+    if args[:1] == ["api"] and any(re.search(r"/pulls/[^/\s]+/merge\b|/merges\b", a) for a in args):
         return NEVER_MERGE
     return None
 
