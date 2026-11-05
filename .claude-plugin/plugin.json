@@ -1,6 +1,6 @@
 {
   "name": "quarterback",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Take a project from idea to merged pull requests. Claude does the work, and you make only the calls that need you.",
   "author": { "name": "Jonny Vango" },
   "license": "MIT"

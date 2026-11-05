@@ -1,0 +1,31 @@
+name: Checks
+
+on:
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Validate the plugin
+        run: npx -y @anthropic-ai/claude-code plugin validate .
+      - name: Test the git hook
+        run: python3 -m unittest discover tests
+      - name: Require a version bump
+        env:
+          BASE: origin/${{ github.base_ref }}
+        run: |
+          git diff --quiet "$BASE"...HEAD -- skills agents hooks && exit 0
+          old=$(git show "$BASE:.claude-plugin/plugin.json" | jq -r .version)
+          new=$(jq -r .version .claude-plugin/plugin.json)
+          if [ "$old" = "$new" ]; then
+            echo "::error file=.claude-plugin/plugin.json::This pull request changes skills, agents or hooks. Bump the version in .claude-plugin/plugin.json (still $new) so installed copies pick up the change."
+            exit 1
+          fi

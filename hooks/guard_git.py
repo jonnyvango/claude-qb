@@ -18,6 +18,7 @@ NEVER_FORCE = "Quarterback never force-pushes. Add a new commit instead."
 OPERATORS = {"&&", "||", ";", "|", "&", "(", ")", "|&", ";;"}
 WRAPPERS = {"sudo", "command", "env", "time", "nohup", "exec", "builtin"}
 GIT_OPTS_WITH_VALUE = {"-C", "-c", "--git-dir", "--work-tree", "--namespace", "--config-env"}
+GH_OPTS_WITH_VALUE = {"-R", "--repo", "--hostname"}
 PUSH_OPTS_WITH_VALUE = {"-o", "--push-option", "--repo", "--receive-pack", "--exec"}
 
 
@@ -123,8 +124,20 @@ def check_git(args, cwd):
     return None
 
 
+def gh_positional(args):
+    words, i = [], 0
+    while i < len(args):
+        if args[i] in GH_OPTS_WITH_VALUE:
+            i += 2
+            continue
+        if not args[i].startswith("-"):
+            words.append(args[i])
+        i += 1
+    return words
+
+
 def check_gh(args):
-    if args[:2] == ["pr", "merge"]:
+    if gh_positional(args)[:2] == ["pr", "merge"]:
         return NEVER_MERGE
     if args[:1] == ["api"] and any(re.search(r"/pulls/[^/\s]+/merge\b|/merges\b", a) for a in args):
         return NEVER_MERGE
