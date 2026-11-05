@@ -21,4 +21,5 @@ The order is deliberate. A rough version of the whole loop comes first, and then
 - Evals that can check commits, since git can't run inside the eval sandbox on macOS
 - Resuming a milestone in a new cloud session, which gets a different branch from the one the earlier work is on
 - Confirming in a cloud session that the check hook fires for the implementer. The git hook does fire there, but the check hook is only tested locally
+- Replacing the check hook's `PreToolUse` on `SubagentHandback`, an undocumented tool, if Claude Code makes a blocked `SubagentStop` keep a subagent working that ends through it. Today the block is logged and ignored
 - A full eval baseline: so far each case has run once, without the no-plugin arm
