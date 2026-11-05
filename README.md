@@ -21,14 +21,7 @@ Cloud is the default, so your machine doesn't need to stay on, but it runs local
 
 ## What needs you
 
-Quarterback's agents make anything that can be undone themselves, such as naming, structure and small behaviour details, and list in the pull request the ones you might want to change, such as behaviour you'll see. They ask you about anything that changes the product's scope or what users see, data changes that are hard to undo, new external services, money, and security trade-offs. Questions come in batches, as multiple choice, each with a recommended answer.
-
-Every pull request is built to be reviewed in minutes. It contains:
-
-- a summary
-- the decisions made, with how to override each one
-- evidence that it works, such as check output and screenshots
-- anything left over
+Quarterback's agents make the decisions that can be undone themselves, and ask you about the rest, such as scope, money and security. Every pull request is built to be reviewed in minutes, and lists the decisions made with how to override each one. The full rules are in the [playbook](skills/playbook/SKILL.md).
 
 Quarterback never merges, never pushes to your default branch, and never force-pushes. A hook enforces this in every Claude Code session where the plugin is enabled, not only during Quarterback's work. While it's on, Claude can't merge a pull request, merge into the default branch, push to it or force-push, in any repository. Do those yourself, or disable the plugin.
 
