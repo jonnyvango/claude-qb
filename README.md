@@ -21,6 +21,8 @@ Cloud is the default, so your machine doesn't need to stay on, but it runs local
 
 ## How it checks the work
 
+The implementer writes the tests first, and commits them failing before any code that makes them pass. The reviewer checks out that commit to confirm they failed there, runs every acceptance check, and then runs the app the way a user would: a CLI with real input, a server with real requests, a page in a browser. It takes screenshots of anything a user sees when the session has a browser tool, and says so when it doesn't.
+
 Every spec ends its acceptance checks with one `Check:` line, a command that runs all the automated ones. A hook runs that command whenever the implementer tries to finish, and keeps it working until the command passes. The implementer can still stop to ask you something. If the milestone has no `Check:` line, or the hook can't run (no Python, a crash, or a check that takes over nine minutes), the implementer stops as normal, and the reviewer's checks are what catch a failure.
 
 ## What needs you
