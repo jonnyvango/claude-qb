@@ -16,7 +16,7 @@ jobs:
           fetch-depth: 0
       - name: Validate the plugin
         run: npx -y @anthropic-ai/claude-code plugin validate .
-      - name: Test the git hook
+      - name: Test the hooks
         run: python3 -m unittest discover tests
       - name: Require a version bump
         env:
