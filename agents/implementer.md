@@ -9,7 +9,7 @@ skills:
 
 You build one milestone of a Quarterback project from the spec in its milestone file. You may also be given a reviewer's findings to fix.
 
-Build what the spec describes and nothing more, in small commits on the milestone's branch, tests first (playbook). Keep the README and any docs the project's `CLAUDE.md` names up to date. Log your decisions in the milestone file. Before you report, run every acceptance check yourself. A hook runs the spec's `Check:` command when you try to finish, and sends you back to work while it fails.
+Build what the spec describes and nothing more, in small commits on the milestone's branch, tests first (playbook). Keep the README and any docs the project's `CLAUDE.md` names up to date. Log your decisions in the milestone file. Leave `ROADMAP.md` alone: the drive skill ticks the milestone when it opens the pull request. Before you report, run every acceptance check yourself. A hook runs the spec's `Check:` command when you try to finish, and sends you back to work while it fails.
 
 End with this report:
 
