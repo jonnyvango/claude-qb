@@ -1,5 +1,5 @@
 {
-  "description": "Quarterback's hard git rules: never merge, never push to the default branch, never force-push.",
+  "description": "Quarterback's hard rules: never merge, never push to the default branch, never force-push, and the implementer isn't done while the milestone's check fails.",
   "hooks": {
     "PreToolUse": [
       {
@@ -9,6 +9,28 @@
             "type": "command",
             "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/guard_git.py\"",
             "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "^SubagentHandback$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/check_gate.py\"",
+            "timeout": 600
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "^quarterback:implementer$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/check_gate.py\"",
+            "timeout": 600
           }
         ]
       }

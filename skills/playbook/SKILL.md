@@ -55,6 +55,8 @@ Ask one question per escalation, and make it answerable in under a minute. Never
 
 Work is done only when its acceptance checks have run and passed. Report the evidence: the commands you ran and their results, plus screenshots for anything a user sees.
 
+Write tests first. Commit the failing tests on their own, before any code that makes them pass, so a reviewer can check out that commit and watch them fail.
+
 Never weaken or delete a test to make it pass. If a test contradicts the spec, fix the test and record why as a decision.
 
 If the same check still fails after two genuinely different fixes, stop and escalate, saying what you tried.

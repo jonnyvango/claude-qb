@@ -19,6 +19,12 @@ You quarterback, Claude plays. Quarterback is a Claude Code plugin that takes a 
 
 Cloud is the default, so your machine doesn't need to stay on, but it runs locally too. It has taken a milestone to an open pull request both locally and in a cloud session. [`docs/cloud-spike.md`](docs/cloud-spike.md) records what works in the cloud, and what still needs fixing.
 
+## How it checks the work
+
+The implementer writes the tests first, and commits them failing before any code that makes them pass. The reviewer checks out that commit to confirm they failed there, runs every acceptance check, and then runs the app the way a user would: a CLI with real input, a server with real requests, a page in a browser. It takes screenshots of anything a user sees when the session has a browser tool, and says so when it doesn't.
+
+Every spec ends its acceptance checks with one `Check:` line, a command that runs all the automated ones. A hook runs that command whenever the implementer tries to finish, and keeps it working until the command passes. The implementer can still stop to ask you something. If the milestone has no `Check:` line, or the hook can't run (no Python, a crash, or a check that takes over nine minutes), the implementer stops as normal, and the reviewer's checks are what catch a failure.
+
 ## What needs you
 
 Quarterback's agents make the decisions that can be undone themselves, and ask you about the rest, such as scope, money and security. Every pull request is built to be reviewed in minutes, and lists the decisions made with how to override each one. The full rules are in the [playbook](skills/playbook/SKILL.md).
@@ -29,7 +35,7 @@ Quarterback never merges, never pushes to your default branch, and never force-p
 
 - Claude Code
 - git, and the GitHub CLI (`gh`) signed in, to open pull requests
-- Python 3, for the git hook. Without it, or if the hook crashes, the hook can't block anything and Claude Code lets the command through.
+- Python 3, for the hooks. Without it, or if a hook crashes, the hook can't block anything: Claude Code lets the git command through, and lets the implementer finish.
 
 ## Install
 
@@ -56,11 +62,11 @@ The shared rules every step follows are in [`skills/playbook/SKILL.md`](skills/p
 ```sh
 claude --plugin-dir .          # run a session with your working copy
 claude plugin validate .       # check the plugin
-python3 -m unittest discover tests   # test the git hook
+python3 -m unittest discover tests   # test the hooks
 claude plugin eval . --scaffold --allow-tools Bash Write Edit   # run the skills' evals
 ```
 
-Every pull request to `master` runs [`checks.yml`](.github/workflows/checks.yml) in GitHub Actions. It validates the plugin, tests the git hook, and fails if the pull request changes `skills/`, `agents/` or `hooks/` without bumping the version in `.claude-plugin/plugin.json`. The bump makes installed copies, including cached cloud environments, pick up the change.
+Every pull request to `master` runs [`checks.yml`](.github/workflows/checks.yml) in GitHub Actions. It validates the plugin, tests the hooks, and fails if the pull request changes `skills/`, `agents/` or `hooks/` without bumping the version in `.claude-plugin/plugin.json`. The bump makes installed copies, including cached cloud environments, pick up the change.
 
 Each skill has eval cases in [`evals/`](evals). Every eval run is a real Claude session on your account, so add `--case <name> --runs 1` while iterating. On a Claude plan, runs count against your usage limits. The dollar cost the eval reports is an estimate at API list price, not a charge.
 
